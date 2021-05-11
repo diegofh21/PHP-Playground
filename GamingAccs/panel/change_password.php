@@ -1,0 +1,60 @@
+<?php
+$mensaje = isset($_GET[ 'mensaje' ]) ? $_GET[ 'mensaje' ] : null;
+$error = isset($_GET[ 'error' ]) ? $_GET[ 'error' ] : null;
+
+if( $error != null)
+  echo "<div id='fade-seconds' class='container my-4 text-center'><span class='alert alert-danger'>$error.</span></div>";
+
+if( $mensaje != null)
+{
+  switch( $mensaje )
+  {
+    case 'success': 
+    {
+      echo "<div id='fade-seconds' class='container my-4 text-center'><span class='alert alert-success'>Accion realizada exitosamente.</span></div>";
+      break;
+    }
+    case 'warning':
+    {
+      echo "<div id='fade-seconds' class='container my-4 text-center'><span class='alert alert-warning text-center'>No se puedo realizar la accion selecionada.</span></div>";
+      break;
+    }
+  }
+}
+?>
+
+<div class="container h-100 p-4">
+  <h2 class="text-center text-success">Cambiar clave</h2>
+  <div class="col-12 col-md-5 ml-auto mr-auto mt-5 bg-dark p-4">
+    <form action="procesos/password-change.php" method="POST">
+      <div class="form-group">
+        <input type="password" class="form-control" name="clave_actual" required placeholder="Clave actual">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="clave_nueva" required placeholder="Clave nueva">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="clave_confirmar" required placeholder="Confirmar clave">
+      </div>
+
+      <div class="form-group text-center">
+        <input class="btn btn-success" type="submit" value="Guardar">
+        <a class="btn btn-danger" href="panel.php?categoria=cuentas">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    ( () => 
+    {
+      window.onload   = function()
+      {
+        var div_fade = document.querySelectorAll( '#fade-seconds' );
+
+        div_fade.forEach(mesagge => {
+          $( '#fade-seconds' ).fadeOut( 3000 );
+        });
+      }
+    }).call(this);
+  </script>
+</div>
